@@ -1,0 +1,28 @@
+int melody[] = {
+ 45, 65,86, 58, 40, 20, 135,56,75 ,37,50 ,1
+};
+
+int duration[] = {
+  2, 2, 2, 2, 2, 2, 2, 2,2,2,2,2,2,2
+};
+
+#include <Stepper.h>
+const int stepsPerRevolution = 200; 
+Stepper myStepper(stepsPerRevolution, 8,9,10,11);            
+int stepCount = 0;  
+
+void setup() {
+Serial.begin(9600);
+}
+
+void loop() {
+  for (int thisNote = 0; thisNote < 12; thisNote++) {  
+   Serial.print("Lyden vi hører nå er ");
+    Serial.println(melody[thisNote]); 
+myStepper.setSpeed(melody[thisNote]);
+    myStepper.step(melody[thisNote]*duration[thisNote]);
+    int pauseBetweenNotes = 200;
+    delay(pauseBetweenNotes); 
+    noTone(1);
+  }
+}
